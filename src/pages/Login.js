@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 class Login extends React.Component {
-  static propTypes = {
-    isAuthorized: PropTypes.bool,
-    logIn: PropTypes.func.isRequired,
-    error: PropTypes.string,
-  };
-
   constructor(props) {
     super(props);
 
@@ -92,3 +86,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  isAuthorized: PropTypes.bool,
+  logIn: PropTypes.func.isRequired,
+  error: PropTypes.string,
+};

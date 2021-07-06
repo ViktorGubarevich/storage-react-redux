@@ -5,7 +5,6 @@ import storageApi from "../actions/storageApi";
 import { loadState, saveState } from "./localStorage";
 
 const sagaMiddleware = createSagaMiddleware();
-
 const initialState = loadState();
 
 const createStoreWithMiddleware = compose(applyMiddleware(sagaMiddleware))(
