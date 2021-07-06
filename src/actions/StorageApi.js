@@ -1,33 +1,24 @@
-import { checkCredentials } from '../service/session'
+import { call, put, takeLatest } from "redux-saga/effects";
+import { logIn } from "../services/authService";
 
-export const LOG_IN = 'LOG_IN'
-export const LOG_OUT = 'LOG_OUT'
-export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'
+export const AUTHORIZATION_SUCCESS = "AUTHORIZATION_SUCCESS";
+export const AUTHORIZATION_FAIL = "AUTHORIZATION_FAIL";
+export const SIGN_OUT = "SIGN_OUT";
 
-export function logIn(params, cb) {
-    return dispatch => {
-        if (checkCredentials(params)) {
-            dispatch({
-                type: LOG_IN,
-                payload: {
-                    name: params.username,
-                },
-            })
-            cb()
-        } else {
-            dispatch({
-                type: LOG_IN_FAILURE,
-                payload: {
-                    errorMsg: 'Имя пользователя или пароль введены не верно',
-                },
-                error: true,
-            })
-        }
-    }
+function* logInSaga({ payload }) {
+  try {
+    const { username, password } = payload;
+    yield call(logIn, username, password);
+    yield put({ type: "AUTHORIZATION_SUCCESS", payload: username });
+  } catch (error) {
+    yield put({
+      type: "AUTHORIZATION_FAIL",
+      payload: error.message,
+      error: true,
+    });
+  }
 }
 
-export function logOut() {
-    return {
-        type: LOG_OUT,
-    }
+export default function* () {
+  yield takeLatest("LOG_IN", logInSaga);
 }

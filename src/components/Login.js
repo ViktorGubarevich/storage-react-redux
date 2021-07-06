@@ -1,80 +1,94 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { logIn } from '../actions/StorageApi'
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Login extends React.Component {
-    state = {
-        redirectToPreviousRoute: false,
-        username: '',
-        password: '',
+  static propTypes = {
+    isAuthorized: PropTypes.bool,
+    logIn: PropTypes.func.isRequired,
+    error: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: "",
+    };
+  }
+
+  onChangeUsername = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    this.setState({ username: value });
+  };
+
+  onChangePassword = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    this.setState({ password: value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { username, password } = this.state;
+
+    this.props.logIn(username, password);
+  };
+
+  render() {
+    const { isAuthorized } = this.props;
+
+    if (isAuthorized) {
+      return <Redirect to="/" />;
     }
 
-    handleSubmit = e => {
-        e.preventDefault()
-        const { username, password } = this.state
+    const { username, password } = this.state;
+    const { error } = this.props;
 
-        this.props.logIn(
-            {
-                username,
-                password,
-            },
-            () => {
-                this.setState({ redirectToPreviousRoute: true })
-            }
-        )
-    }
-
-    handleChange = e => {
-        const value = e.currentTarget.value
-        const fieldName = e.currentTarget.dataset.fieldName
-
-        this.setState(prev => ({
-            ...prev,
-            [fieldName]: value,
-        }))
-    }
-
-    render() {
-        const { location, errorMsg } = this.props
-        const { from } = location.state || { from: { pathname: '/' } }
-        const { username, password, redirectToPreviousRoute } = this.state
-
-        if (redirectToPreviousRoute) {
-            return <Redirect to={from} />
-        }
-
-        return (
-            <div>
-                {errorMsg && <p>{errorMsg}</p>}
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        data-field-name={'username'}
-                        type={'text'}
-                        onChange={this.handleChange}
-                        placeholder={'Имя'}
-                        value={username}
-                    />
-                    <input
-                        data-field-name={'password'}
-                        type={'text'}
-                        onChange={this.handleChange}
-                        placeholder={'Пароль'}
-                        value={password}
-                    />
-                    <button type="submit">Log in</button>
-                </form>
-            </div>
-        )
-    }
+    return (
+      <div id="login">
+        <form id="login-form" onSubmit={this.handleSubmit}>
+          <label>Login</label>
+          <input
+            required
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.onChangeUsername}
+          />
+          <label>Password</label>
+          <input
+            required
+            type="password"
+            name="password"
+            value={password}
+            onChange={this.onChangePassword}
+          />
+          <button type="submit">Sign In</button>
+          <div className="error-message" hidden={!error}>
+            {error}
+          </div>
+        </form>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-    errorMsg: state.session.errorMsg,
-})
+const mapStateToProps = (state) => ({
+  isAuthorized: Boolean(state.username),
+  error: state.errorMessage,
+});
 
-const mapDispatchToProps = dispatch => ({
-    logIn: (params, cb) => dispatch(logIn(params, cb)),
-})
+const mapDispatchToProps = (dispatch) => ({
+  logIn: (username, password) =>
+    dispatch({ type: "LOG_IN", payload: { username, password } }),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

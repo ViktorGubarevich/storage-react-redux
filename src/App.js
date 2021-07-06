@@ -1,26 +1,37 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import Login from './components/Login'
-import LinkBtn from './components/LinkBtn'
-import Home from './components/Home'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { routes } from "./routes";
+import NavigationBar from "./components/NavigationBar";
+import Authorization from "./hoc/authorization";
+import "./App.css";
 
-const App = () => (
-  <div>
-    <header className="header">
-      <div className="top-menu">
-        <LinkBtn to="/" label={'Главная'} />
-        <LinkBtn to="/login" label={'Логин'} />
-      </div>
-    </header>
-    <hr />
-    <div className="content">
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-      </Switch>
-    </div>
-  </div>
-)
+const App = () => {
+  const renderSwitch = () => (
+    <Switch>
+      {routes.map((route) => {
+        const component = route.isPrivate
+          ? Authorization(route.component)
+          : route.component;
+        return (
+          <Route
+            key={route.path}
+            exact={route.isExact}
+            path={route.path}
+            component={component}
+          />
+        );
+      })}
+    </Switch>
+  );
 
-export default App
+  return (
+    <Router>
+      <React.Fragment>
+        <NavigationBar routes={routes.filter((route) => route.isNavBar)} />
+        <div id="ui-content">{renderSwitch()}</div>
+      </React.Fragment>
+    </Router>
+  );
+};
+
+export default App;
