@@ -1,6 +1,7 @@
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import SignUp from './pages/SignUp';
 
 export const routes = [{
     isNavBar: true,
@@ -20,8 +21,12 @@ export const routes = [{
     path: '/login',
     name: 'Login',
     component: Login
-}
-];
+},
+{
+    path: '/signup',
+    name: 'SignUp',
+    component: SignUp
+}];
 
 
 

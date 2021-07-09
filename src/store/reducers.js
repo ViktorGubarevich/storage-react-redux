@@ -2,7 +2,7 @@ import {
   AUTHORIZATION_SUCCESS,
   AUTHORIZATION_FAIL,
   SIGN_OUT,
-} from "../actions/storageApi";
+} from "./actionTypes";
 
 const auth = (state = false, action) => {
   switch (action.type) {

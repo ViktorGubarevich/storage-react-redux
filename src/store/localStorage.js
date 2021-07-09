@@ -1,10 +1,20 @@
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
+    const db = {
+      users: {
+        "admin": {
+          "password": "12345"
+        },
+        "admin2": {
+          "password": "123456"
+        }
+      }
+    };
     if (serializedState) {
-      return JSON.parse(serializedState);
+      return { ...db, ...JSON.parse(serializedState) };
     }
-    return undefined;
+    return db;
   } catch (err) {
     return undefined;
   }

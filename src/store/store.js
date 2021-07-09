@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import reducers from "./reducers";
-import storageApi from "../actions/storageApi";
+import sagas from './sagas';
 import { loadState, saveState } from "./localStorage";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -19,6 +19,6 @@ store.subscribe(() => {
   });
 });
 
-sagaMiddleware.run(storageApi);
+sagaMiddleware.run(sagas);
 
 export default store;

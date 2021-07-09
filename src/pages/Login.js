@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -9,30 +9,18 @@ class Login extends React.Component {
 
     this.state = {
       username: "",
-      password: "",
+      password: ""
     };
   }
 
-  onChangeUsername = (event) => {
-    const {
-      target: { value },
-    } = event;
-
-    this.setState({ username: value });
-  };
-
-  onChangePassword = (event) => {
-    const {
-      target: { value },
-    } = event;
-
-    this.setState({ password: value });
-  };
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = this.state;
-
     this.props.logIn(username, password);
   };
 
@@ -55,7 +43,7 @@ class Login extends React.Component {
             type="text"
             name="username"
             value={username}
-            onChange={this.onChangeUsername}
+            onChange={this.handleChange}
           />
           <label>Password</label>
           <input
@@ -63,12 +51,13 @@ class Login extends React.Component {
             type="password"
             name="password"
             value={password}
-            onChange={this.onChangePassword}
+            onChange={this.handleChange}
           />
           <button type="submit">Sign In</button>
           <div className="error-message" hidden={!error}>
             {error}
           </div>
+          Or <Link to="/signup">register now!</Link>
         </form>
       </div>
     );
