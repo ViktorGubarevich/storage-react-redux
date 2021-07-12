@@ -1,15 +1,15 @@
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem('state');
+    const serializedState = localStorage.getItem("state");
     const db = {
       users: {
-        "admin": {
-          "password": "12345"
+        admin: {
+          password: "12345",
         },
-        "admin2": {
-          "password": "123456"
-        }
-      }
+        admin2: {
+          password: "123456",
+        },
+      },
     };
     if (serializedState) {
       return { ...db, ...JSON.parse(serializedState) };
@@ -22,9 +22,14 @@ export const loadState = () => {
 
 export const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
+    localStorage.setItem(
+      "state",
+      JSON.stringify({
+        ...loadState(),
+        ...state,
+      })
+    );
   } catch (err) {
-    console.log('We received an error while saving the store');
+    console.log("We received an error while saving the store");
   }
 };

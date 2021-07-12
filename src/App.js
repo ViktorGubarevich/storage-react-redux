@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { routes } from "./routes";
-import NavigationBar from "./components/NavigationBar";
+import NavigationBar from "./_components/NavigationBar";
 import Authorization from "./hoc/authorization";
 import "./App.css";
 
@@ -35,4 +35,3 @@ const App = () => {
 };
 
 export default App;
-

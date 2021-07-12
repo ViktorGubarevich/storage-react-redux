@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { SIGN_OUT } from "../store/actionTypes";
+import { SIGN_OUT } from "../_constants/user.constants";
 
 function Profile(props) {
-
   const signOut = () => {
     props.signOut();
   };
@@ -23,7 +22,6 @@ function Profile(props) {
       </div>
     </div>
   );
-
 }
 
 const mapStateToProps = (state) => ({
