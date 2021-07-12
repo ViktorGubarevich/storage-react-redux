@@ -6,9 +6,16 @@ import App from "./App";
 
 import { saveState } from "./store/localStorage";
 
-saveState("accounts", {
-  admin: 12345,
-  admin2: 123456,
+
+saveState({
+  users: {
+    admin: {
+      password: "12345",
+    },
+    admin2: {
+      password: "123456"
+    }
+  },
 });
 
 render(

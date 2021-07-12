@@ -78,6 +78,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
 SignUp.propTypes = {
     isAuthorized: PropTypes.bool,
-    logIn: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
     error: PropTypes.string,
 };

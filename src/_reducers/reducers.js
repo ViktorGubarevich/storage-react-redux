@@ -1,19 +1,25 @@
 import {
-  AUTHORIZATION_SUCCESS,
-  AUTHORIZATION_FAIL,
-  SIGN_OUT,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT,
+    REGISTER_SUCCESS,
+    REGISTER_FAILURE,
 } from "../_constants/user.constants";
 
 const auth = (state = false, action) => {
-  switch (action.type) {
-    case AUTHORIZATION_SUCCESS:
-      return { username: action.payload };
-    case SIGN_OUT:
-    case AUTHORIZATION_FAIL:
-      return { errorMessage: action.payload };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case LOGIN_SUCCESS:
+            return { username: action.payload };
+        case LOGOUT:
+        case LOGIN_FAILURE:
+            return { errorMessage: action.payload };
+        case REGISTER_SUCCESS:
+            return {};
+        case REGISTER_FAILURE:
+            return {};
+        default:
+            return state;
+    }
 };
 
 export default auth;

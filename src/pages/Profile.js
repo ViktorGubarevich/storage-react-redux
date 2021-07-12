@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { SIGN_OUT } from "../_constants/user.constants";
+import { LOGOUT } from "../_constants/user.constants";
 
 function Profile(props) {
-  const signOut = () => {
-    props.signOut();
+  const logOut = () => {
+    props.logOut();
   };
 
   return (
@@ -18,7 +18,7 @@ function Profile(props) {
           <label>Username:</label>
           <span>{props.username}</span>
         </div>
-        <button onClick={signOut}>Sign out</button>
+        <button onClick={logOut}>Log out</button>
       </div>
     </div>
   );
@@ -29,12 +29,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signOut: () => dispatch({ type: SIGN_OUT }),
+  logOut: () => dispatch({ type: LOGOUT }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 Profile.propTypes = {
-  signOut: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
 };
