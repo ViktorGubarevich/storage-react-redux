@@ -18,6 +18,19 @@ saveState({
   },
 });
 
+// saveState([
+//   {
+//     admin: {
+//       username: "admin",
+//       password: "12345"
+//     },
+//     admin2: {
+//       username: "admin2",
+//       password: "123456"
+//     },
+//   }
+// ])
+
 render(
   <Provider store={store}>
     <App />

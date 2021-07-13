@@ -13,15 +13,19 @@ class SignUp extends React.Component {
         };
     }
 
-    handleChange = (event) => {
-        const { name, value } = event.target;
-        this.setState({ [name]: value });
+    handleChangeUsername = (event) => {
+        this.setState({ username: event.target.value });
+    }
+
+    handleChangePassword = (event) => {
+        this.setState({ password: event.target.value });
     }
 
     handleSubmit = (event) => {
+        // debugger;
         event.preventDefault();
-        const { user } = this.state;
-        this.props.signUp(user);
+        const { username, password } = this.state;
+        this.props.signUp(username, password);
     };
 
     render() {
@@ -31,27 +35,26 @@ class SignUp extends React.Component {
             return <Redirect to="/" />;
         }
 
-        const { username, password } = this.state;
         const { error } = this.props;
 
         return (
             <div id="login">
-                <form id="login-form" onSubmit={this.handleSubmit}>
-                    <label>Sign Up</label>
+                <form id="login-form" onSubmit={this.handleSubmit.bind(this)}>
+                    <label>First Name</label>
                     <input
                         required
                         type="text"
                         name="username"
-                        value={username}
-                        onChange={this.handleChange}
+                        value={this.state.username}
+                        onChange={this.handleChangeUsername.bind(this)}
                     />
                     <label>Password</label>
                     <input
                         required
                         type="password"
                         name="password"
-                        value={password}
-                        onChange={this.handleChange}
+                        value={this.state.password}
+                        onChange={this.handleChangePassword.bind(this)}
                     />
                     <button type="submit">Sign Up</button>
                     <div className="error-message" hidden={!error}>

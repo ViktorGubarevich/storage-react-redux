@@ -14,9 +14,9 @@ const auth = (state = false, action) => {
         case LOGIN_FAILURE:
             return { errorMessage: action.payload };
         case REGISTER_SUCCESS:
-            return {};
+            return { username: action.payload };
         case REGISTER_FAILURE:
-            return {};
+            return { errorMessage: action.payload };
         default:
             return state;
     }
