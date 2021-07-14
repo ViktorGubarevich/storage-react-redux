@@ -6,29 +6,25 @@ import App from "./App";
 
 import { saveState } from "./store/localStorage";
 
-saveState({
-  users: {
-    admin: {
-      password: "12345",
-    },
-    admin2: {
-      password: "123456",
-    },
-  },
-});
-
-// saveState([
-//   {
+// saveState({
+//   users: {
 //     admin: {
-//       username: "admin",
-//       password: "12345"
+//       password: "12345",
 //     },
 //     admin2: {
-//       username: "admin2",
-//       password: "123456"
+//       password: "123456",
 //     },
-//   }
-// ])
+//   },
+// });
+
+saveState([
+  {
+    users: [
+      { username: "admin", password: "12345" },
+      { username: "admin2", password: "123456" },
+    ],
+  }
+]);
 
 render(
   <Provider store={store}>
