@@ -8,13 +8,12 @@ export const loadState = () => {
   }
 };
 
-export const saveState = (state, newUser) => {
+export const saveState = (state) => {
   localStorage.setItem(
     "state",
     JSON.stringify({
       ...loadState(),
       ...state,
-      ...newUser,
     })
   );
 };
