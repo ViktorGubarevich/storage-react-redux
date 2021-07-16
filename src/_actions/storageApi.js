@@ -1,4 +1,4 @@
-import { loadState, saveState } from "../store/localStorage";
+import { loadState, saveState } from "../_helpers/localStorage";
 
 export const logIn = (username, password) =>
   new Promise((resolve, reject) => {

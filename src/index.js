@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import App from "./App";
 
-import { saveState } from "./store/localStorage";
+import { saveState } from "./_helpers/localStorage";
 
 saveState({
   users: {

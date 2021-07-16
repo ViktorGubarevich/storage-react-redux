@@ -6,7 +6,7 @@ import {
     REGISTER_FAILURE,
 } from "../_constants/user.constants";
 
-const auth = (state = false, action) => {
+const auth = (state = {}, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS:
             return { username: action.payload };
