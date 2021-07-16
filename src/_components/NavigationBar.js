@@ -4,14 +4,9 @@ import { NavLink } from "react-router-dom";
 
 const NavigationBar = (props) => (
   <header className="nav-bar">
-    {props.routes.map((route) => (
-      <NavLink
-        exact={route.isExact}
-        activeClassName="active"
-        key={route.path}
-        to={route.path}
-      >
-        {route.name}
+    {props.routes.map(({ isExact, path, name }) => (
+      <NavLink exact={isExact} activeClassName="active" key={path} to={path}>
+        {name}
       </NavLink>
     ))}
   </header>
